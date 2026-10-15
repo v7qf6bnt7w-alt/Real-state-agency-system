@@ -1,0 +1,79 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f6f2">
+  <title>Estate North — Find your place</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/site.css' %}">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Estate North home"><span class="brand-mark">E</span> estate<span>north</span></a>
+    <nav aria-label="Main navigation"><a href="#homes">Our homes</a><a href="#about">About</a><a class="nav-contact" href="mailto:hello@estatenorth.example">Talk to an advisor <span>↗</span></a></nav>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span></span> A more considered way home</div>
+        <h1>Find a place<br>to <em>belong.</em></h1>
+        <p>Thoughtful homes, handpicked for the way you want to live.</p>
+        <a href="#homes" class="button button-dark">Explore properties <span>↓</span></a>
+      </div>
+      <div class="hero-image"><div class="image-caption"><span>01 / 04</span><span>Spaces made for living</span></div></div>
+      <div class="hero-note">Independent real estate<br>advisors since 2012</div>
+    </section>
+
+    <section class="catalog section-wrap" id="homes">
+      <div class="section-heading">
+        <div><div class="eyebrow">The collection</div><h2>Homes with <em>character.</em></h2></div>
+        <p id="result-count" aria-live="polite">Discover your next chapter.</p>
+      </div>
+      <form id="filters" class="filters">
+        <label class="filter-search"><span>⌕</span><input name="search" type="search" placeholder="Area, neighborhood or keyword"></label>
+        <label><span class="sr-only">Property type</span><select name="property_type"><option value="">Any property</option><option value="apartment">Apartment</option><option value="house">House</option><option value="commercial">Commercial</option></select></label>
+        <label><span class="sr-only">Listing status</span><select name="status"><option value="">Buy or rent</option><option value="for_sale">For sale</option><option value="for_rent">For rent</option></select></label>
+        <label><span class="sr-only">Minimum bedrooms</span><select name="min_bedrooms"><option value="">Any beds</option><option value="1">1+ beds</option><option value="2">2+ beds</option><option value="3">3+ beds</option><option value="4">4+ beds</option><option value="5">5+ beds</option><option value="6">6+ beds</option></select></label>
+        <label><span class="sr-only">Minimum bathrooms</span><select name="min_bathrooms"><option value="">Any baths</option><option value="1">1+ baths</option><option value="2">2+ baths</option><option value="3">3+ baths</option><option value="4">4+ baths</option><option value="5">5+ baths</option></select></label>
+        <label><span class="sr-only">Minimum price</span><select name="min_price"><option value="">Min price</option><option value="100000">$100k min</option><option value="250000">$250k min</option><option value="500000">$500k min</option><option value="750000">$750k min</option><option value="1000000">$1m min</option><option value="1500000">$1.5m min</option><option value="2000000">$2m min</option></select></label>
+        <label><span class="sr-only">Maximum price</span><select name="max_price"><option value="">Any price</option><option value="250000">$250k max</option><option value="500000">$500k max</option><option value="750000">$750k max</option><option value="1000000">$1m max</option><option value="1500000">$1.5m max</option><option value="2000000">$2m max</option><option value="3000000">$3m max</option><option value="5000000">$5m max</option></select></label>
+        <button class="filter-button" type="submit" aria-label="Search properties">Find a home <span>→</span></button>
+      </form>
+      <div id="property-grid" class="property-grid" aria-live="polite"><div class="loading">Curating your collection…</div></div>
+      <button id="load-more" class="load-more" type="button" hidden>Load more homes <span>↓</span></button>
+      <p id="empty-state" class="empty-state" hidden>No homes match those filters. Try broadening your search.</p>
+      <p id="catalog-error" class="empty-state" role="alert" hidden></p>
+    </section>
+
+    <section class="manifesto" id="about"><div class="manifesto-mark">“</div><p>Good homes aren’t just found.<br>They’re <em>felt.</em></p><span>Local knowledge. Personal attention. A better move.</span></section>
+  </main>
+  <footer><a class="brand" href="/"><span class="brand-mark">E</span> estate<span>north</span></a><span>Real estate, thoughtfully considered.</span><a href="/admin/">Agency staff ↗</a></footer>
+
+  <dialog id="lead-dialog" class="lead-dialog">
+    <form id="lead-form" method="dialog">
+      <button class="dialog-close" type="button" aria-label="Close dialog">×</button>
+      <div class="eyebrow">A good place to start</div><h2>Tell us what<br>you’re <em>looking for.</em></h2>
+      <p id="lead-property-title" class="lead-property-title"></p>
+      <div id="property-detail" class="property-detail"></div>
+      <div class="form-grid">
+        <label>First name<input name="first_name" required maxlength="100" autocomplete="given-name"></label>
+        <label>Last name<input name="last_name" required maxlength="100" autocomplete="family-name"></label>
+        <label>Email<input name="email" type="email" required maxlength="254" autocomplete="email"></label>
+        <label>Phone<input name="phone" type="tel" required maxlength="32" autocomplete="tel"></label>
+        <label class="full-field">Anything else?<textarea name="comments" rows="3" maxlength="3000" placeholder="Tell us a little about what you need"></textarea></label>
+      </div>
+      <div id="captcha-slot"></div>
+      <p class="form-error" id="form-error" role="alert"></p>
+      <button class="button button-dark submit-button" type="submit">Request information <span>→</span></button>
+      <p class="privacy-note">Your details are only shared with our property team.</p>
+    </form>
+    <div id="lead-success" class="lead-success" hidden><div class="success-icon">✓</div><div class="eyebrow">Message received</div><h2>We’ll be in<br><em>touch soon.</em></h2><p>One of our local advisors will get back to you shortly.</p><button class="button button-dark" type="button" id="close-success">Back to homes</button></div>
+  </dialog>
+  <script>window.ESTATE_CONFIG = { whatsapp: "", recaptchaRequired: false, recaptchaSiteKey: "" };</script>
+  <script src="{% static 'js/site.js' %}" defer></script>
+</body>
+</html>

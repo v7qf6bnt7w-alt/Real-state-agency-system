@@ -1,0 +1,39 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="estate-dashboard-intro">
+  <div class="estate-kicker">ESTATE NORTH · STAFF WORKSPACE</div>
+  <h1>Good to see you.</h1>
+  <p>Manage your homes, keep up with new inquiries, and take care of the details.</p>
+</div>
+<div class="estate-dashboard-grid">
+  {% for app in app_list %}
+    <section class="estate-admin-card">
+      <div class="estate-card-heading">
+        <span class="estate-card-mark">{% if app.app_label == "properties" %}E{% else %}✳{% endif %}</span>
+        <div><div class="estate-kicker">WORKSPACE</div><h2>{{ app.name }}</h2></div>
+      </div>
+      <ul class="estate-model-list">
+        {% for model in app.models %}
+          <li>
+            {% if model.admin_url %}
+              <a class="estate-model-link" href="{{ model.admin_url }}">{{ model.name }} <span>↗</span></a>
+            {% else %}
+              <span class="estate-model-link estate-disabled">{{ model.name }}</span>
+            {% endif %}
+            {% if model.add_url %}<a class="estate-add-link" href="{{ model.add_url }}">Add new</a>{% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% empty %}
+    <section class="estate-admin-card estate-no-access">
+      <h2>No workspaces yet</h2>
+      <p>Your account does not have permission to manage any records.</p>
+    </section>
+  {% endfor %}
+</div>
+{% endblock %}
+
+{% block sidebar %}{% endblock %}
